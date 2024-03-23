@@ -148,6 +148,12 @@ async function handleBirthdayCommand(
       if (!monthOption || !dayOption) {
         return new Response(null, {status: 400});
       }
+      if (!isValidDate(monthOption.value, dayOption.value)) {
+        return jsonResponse({
+          type: InteractionResponseType.ChannelMessageWithSource,
+          data: {content: 'Invalid date provided. Please enter a valid month and day.', flags: 64},
+        });
+      }
       const insertStmt = env.DB.prepare('INSERT OR REPLACE INTO birthdays VALUES (?, ?, ?, ?)');
       await insertStmt.bind(userId, monthOption.value, dayOption.value, false).run();
       const response = await fetch(
@@ -183,4 +189,9 @@ async function handleBirthdayCommand(
       return new Response(null, {status: 400});
     }
   }
+}
+
+function isValidDate(month: number, day: number): boolean {
+  const date = new Date(2024, month - 1, day); // Leap year (2024) to account for February 29th
+  return date.getMonth() + 1 === month && date.getDate() === day;
 }
