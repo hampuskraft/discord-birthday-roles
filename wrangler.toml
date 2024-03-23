@@ -1,0 +1,12 @@
+name = "discord-birthday-roles"
+compatibility_date = "2023-08-14"
+main = "src/index.ts"
+account_id = "9f98748511695a9ef6354ea2dc97af9a"
+
+[triggers]
+crons = ["*/1 * * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "discord-birthday-roles"
+database_id = "503feb36-b134-483e-b84a-5a3d2c9d9356"

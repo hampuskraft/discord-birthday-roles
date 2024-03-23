@@ -1,0 +1,26 @@
+{
+  "name": "discord-birthday-roles",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "d1:create": "wrangler d1 create discord-birthday-roles --location=enam",
+    "d1:init": "wrangler d1 execute discord-birthday-roles --remote --file=./schema.sql",
+    "d1:init:dev": "wrangler d1 execute discord-birthday-roles --local --file=./schema.sql",
+    "deploy": "wrangler deploy",
+    "format": "prettier --write .",
+    "register": "node ./register.js",
+    "start": "wrangler dev --test-scheduled"
+  },
+  "dependencies": {
+    "discord-interactions": "3.4.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20240320.1",
+    "discord-api-types": "0.37.76",
+    "dotenv": "16.4.5",
+    "prettier-plugin-organize-imports": "3.2.4",
+    "typescript": "5.4.3",
+    "wrangler": "3.37.0"
+  }
+}
