@@ -24,7 +24,7 @@ type Birthday = {
 };
 
 export default {
-  async fetch(request: Request, env: Env, _ctx: ExecutionContext): Promise<Response> {
+  async fetch(request, env, _ctx) {
     if (request.method !== 'POST') {
       return new Response(null, {status: 405});
     }
@@ -72,7 +72,7 @@ export default {
     return new Response(null, {status: 400});
   },
 
-  async scheduled(_event: ScheduledEvent, env: Env, _ctx: ExecutionContext): Promise<void> {
+  async scheduled(_event, env, _ctx) {
     const {results} = await env.DB.prepare('SELECT * FROM birthdays').all<Birthday>();
     const today = new Date();
     const todayMonth = today.getMonth() + 1;
@@ -118,7 +118,7 @@ export default {
       }
     }
   },
-};
+} satisfies ExportedHandler<Env>;
 
 function jsonResponse(body: object, status: number = 200): Response {
   return new Response(JSON.stringify(body), {
